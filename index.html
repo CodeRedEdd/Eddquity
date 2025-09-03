@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -73,7 +34,7 @@
     <div class="container mx-auto px-4 flex justify-between items-center">
       <div>
         <h1 class="text-2xl font-bold">Edwin Vazquez</h1>
-        <p class="text-sm">Real Estate Agent with WW Realty</p>
+        <p class="text-sm">Real Estate Agent with EXP Realtor</p>
       </div>
       <nav class="space-x-6">
         <a href="#home" class="hover:text-yellow-400">Home</a>
@@ -95,17 +56,17 @@
 
   <!-- About Section -->
   <section id="about" class="py-16">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-8">About Me</h2>
-    <div class="flex flex-col md:flex-row items-center">
-      <img src="https://images.unsplash.com/photo-1753232530735-d16c5b9edfdb?q=80&w=1984&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Edwin Vazquez" class="w-64 h-64 rounded-full mb-6 md:mb-0 md:mr-8 object-cover">
-      <div>
-        <p class="text-lg mb-4">Hello, I’m Edwin Vazquez, a dedicated real estate agent with WW Realty, proudly serving the North and East sides of the Bronx, including the vibrant Country Club neighborhood. With deep knowledge of these communities, I specialize in helping clients find their perfect home or sell their property in these dynamic areas.</p>
-        <p class="text-lg">My approach is built on trust, transparency, and personalized service, ensuring a seamless experience whether you’re buying or selling. Let’s work together to achieve your real estate goals in the Bronx!</p>
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">About Me</h2>
+      <div class="flex flex-col md:flex-row items-center">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Edwin Vazquez" class="w-64 h-64 rounded-full mb-6 md:mb-0 md:mr-8">
+        <div>
+          <p class="text-lg mb-4">Hello, I’m Edwin Vazquez, a dedicated real estate agent with EXP Realtor, proudly serving the North and East sides of the Bronx, including the vibrant Country Club neighborhood. With deep knowledge of these communities, I specialize in helping clients find their perfect home or sell their property in these dynamic areas.</p>
+          <p class="text-lg">My approach is built on trust, transparency, and personalized service, ensuring a seamless experience whether you’re buying or selling. Let’s work together to achieve your real estate goals in the Bronx!</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Services Section -->
   <section id="services" class="bg-gray-900 py-16">
@@ -166,7 +127,7 @@
   <!-- Footer -->
   <footer class="bg-black text-white py-6">
     <div class="container mx-auto px-4 text-center">
-      <p>© 2025 Edwin Vazquez, Real Estate Agent with WW Realty. All rights reserved.</p>
+      <p>© 2025 Edwin Vazquez, Real Estate Agent with EXP Realtor. All rights reserved.</p>
     </div>
   </footer>
 
